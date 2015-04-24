@@ -9,15 +9,37 @@ describe("Andy's first angular app", function() {
   });
 
   it('should have posts 1 to 5 on the page', function() {
-    var posts = element.all(by.repeater('post in posts'));
+    var postsTitle = element.all(by.repeater('post in posts').column('post.title'));
 
-    function getPostsText() {
-      return posts.map(function(elm) {
+    function postsTitleText() {
+      return postsTitle.map(function(elm) {
+        return elm.getText();
+      }).
+        then(function(items) {
+          return items.sort();
+        });
+    }
+
+    expect(postsTitleText()).toEqual(['post1', 'post2', 'post3', 'post4', 'post5']);
+  });
+
+  it('should order the posts by number of upvotes', function() {
+    var postsUpvotes = element.all(by.repeater('post in posts').column('upvote'));
+
+    function getUpvoteValues() {
+      return postsUpvotes.map(function(elm) {
         return elm.getText();
       });
     }
 
-    expect(getPostsText()).toEqual(['post1', 'post2', 'post3', 'post4', 'post5']);
+    function sortedUpvoteValues() {
+      return getUpvoteValues().
+        then(function(items) {
+          return items.sort(function(a, b){return b-a;});
+        });
+    }
+
+    expect(getUpvoteValues()).toEqual(sortedUpvoteValues());
   });
 
 });
