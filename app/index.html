@@ -6,12 +6,24 @@
     <script src="js/app.js"></script>
   </head>
   <body ng-app="andyNews" ng-controller="MainCtrl">
-    <section>
+
+    <section id="welcome">
       {{test}}
     </section>
-    <button id="post-button" ng-click="addPost()">Post</button>
-    <section ng-repeat="post in posts | orderBy: '-upvotes'">
-      <p>Title: <span>{{post.title}}</span> upvotes: <span>{{post.upvotes}}</span></p>
+
+    <section id="add-new-post">
+      <form ng-submit="addPost()">
+        <input id="new-post-text" type="text" ng-model="title"></input>
+        <button id="add-post-button" type="submit">Post</button>
+      </form>
     </section>
+
+    <section ng-repeat="post in posts | orderBy: '-upvotes'">
+      <p>Title: <span>{{post.title}}</span>
+         upvotes: <span>{{post.upvotes}} </span>
+         <button ng-click="incrementUpvotes(post)">^</button>
+      </p>
+    </section>
+
   </body>
 </html>

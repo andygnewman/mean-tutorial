@@ -19,8 +19,30 @@ describe('AndyNews Controllers', function() {
     });
 
     it('should allow a new post to be created', function() {
+      scope.title = 'new post';
       scope.addPost();
       expect(scope.posts.length).toBe(6);
+    });
+
+    it('should not create a new post if no post text', function() {
+      scope.addPost();
+      expect(scope.posts.length).toBe(5);
+    });
+
+    it('should allow upvotes to be incremented', function() {
+      scope.title = 'new post';
+      scope.addPost();
+      function newPost() {
+        for (var i = 0; i < scope.posts.length; i++) {
+          if (scope.posts[i].title === 'new post') {
+            return scope.posts[i];
+          }
+        }
+      }
+
+      expect(newPost().upvotes).toBe(0);
+      scope.incrementUpvotes(newPost());
+      expect(newPost().upvotes).toBe(1);
     });
 
   });

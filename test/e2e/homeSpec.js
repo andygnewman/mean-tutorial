@@ -42,13 +42,55 @@ describe("Andy's first angular app", function() {
     expect(getUpvoteValues()).toEqual(sortedUpvoteValues());
   });
 
-  it('should add a new post when Post button clicked', function() {
-    var postButton = element(by.id('post-button'));
+  it('should be able to add a new post', function() {
+    var newPost = element(by.id('new-post-text'));
+    var postButton = element(by.id('add-post-button'));
+    var posts = element.all(by.repeater('post in posts'));
+
+    newPost.sendKeys('new post');
+    postButton.click();
+
+    expect(posts.count()).toBe(6);
+  });
+
+  it('should not add a new post if no post text entered', function() {
+    var postButton = element(by.id('add-post-button'));
     var posts = element.all(by.repeater('post in posts'));
 
     postButton.click();
 
-    expect(posts.count()).toBe(6);
+    expect(posts.count()).toBe(5);
+  });
+
+  xit('should allow the upvotes to be incremented', function() {
+
+    function clickUpvoteButton() {
+      element.all(by.repeater('post in posts')).
+        then(function(posts) {
+          return posts[0].element(by.css('[ng-click="incrementUpvotes(post)"]'));
+        }).
+        then(function(button) {
+          button.click();
+        });
+    }
+
+    function upvoteNumber() {
+      element.all(by.repeater('post in posts').column('upvote')).
+        then(function(upvotes) {
+          upvotes.map(function(elm) {
+            return elm.getText();
+          });
+        }).
+        then(function(upvoteValues) {
+          return upvoteValues[0];
+        });
+    }
+
+    // expect(upvoteNumber).toBe('15');
+
+    clickUpvoteButton();
+
+    expect(upvoteNumber()).toBe('16');
 
   });
 
