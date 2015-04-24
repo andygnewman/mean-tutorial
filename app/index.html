@@ -9,6 +9,7 @@
     <section>
       {{test}}
     </section>
+    <button id="post-button" ng-click="addPost()">Post</button>
     <section ng-repeat="post in posts | orderBy: '-upvotes'">
       <p>Title: <span>{{post.title}}</span> upvotes: <span>{{post.upvotes}}</span></p>
     </section>

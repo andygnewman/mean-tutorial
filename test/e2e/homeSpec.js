@@ -42,4 +42,14 @@ describe("Andy's first angular app", function() {
     expect(getUpvoteValues()).toEqual(sortedUpvoteValues());
   });
 
+  it('should add a new post when Post button clicked', function() {
+    var postButton = element(by.id('post-button'));
+    var posts = element.all(by.repeater('post in posts'));
+
+    postButton.click();
+
+    expect(posts.count()).toBe(6);
+
+  });
+
 });

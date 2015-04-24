@@ -18,6 +18,11 @@ describe('AndyNews Controllers', function() {
       expect(scope.posts.length).toBe(5);
     });
 
+    it('should allow a new post to be created', function() {
+      scope.addPost();
+      expect(scope.posts.length).toBe(6);
+    });
+
   });
 
 });
