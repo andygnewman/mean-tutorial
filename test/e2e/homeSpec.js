@@ -87,9 +87,7 @@ describe("Andy's first angular app Home Page", function() {
     }
 
     expect(getFirstUpvoteValue()).toBe('15');
-
     clickUpvoteButton();
-
     expect(getFirstUpvoteValue()).toBe('16');
 
   });

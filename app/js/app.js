@@ -69,6 +69,9 @@ app.controller('PostsCtrl',
         });
         $scope.body = '';
       };
+      $scope.incrementCommentUpvotes = function(comment) {
+        comment.upvotes += 1;
+      };
 }]);
 
 app.filter('index', function() {

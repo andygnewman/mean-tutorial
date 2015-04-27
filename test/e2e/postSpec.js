@@ -21,15 +21,44 @@ describe("Andy's first angular app - Posts Page", function() {
 
     beforeEach(function() {
       browser.get('app/index.html#/posts/0');
+      element(by.model('body')).sendKeys('great post');
+      element(by.id('post-comment-button')).click();
     });
 
     it('should allow a new comment to be added', function() {
       var comments = element.all(by.repeater('comment in post.comments'));
 
-      element(by.model('body')).sendKeys('great post');
-      element(by.id('post-comment-button')).click();
-
       expect(comments.count()).toBe(1);
+    });
+
+    it('should allow comment upvotes to be incremented', function() {
+
+      var commentUpvotes = element.all(
+        by.repeater('comment in post.comments').column('comment.upvotes'));
+
+      function getFirstUpvoteValue() {
+        return commentUpvotes.map(function(elm) {
+            return elm.getText();
+        }).
+          then(function(upvotesArray) {
+            return upvotesArray[0];
+          });
+      }
+
+      function clickUpvoteButton() {
+        element.all(by.repeater('comment in post.comments')).
+          then(function(comments) {
+            return comments[0]
+              .element(by.css('[ng-click="incrementCommentUpvotes(comment)"]'));
+          }).
+          then(function(button) {
+            button.click();
+          });
+      }
+
+      expect(getFirstUpvoteValue()).toBe('0');
+      clickUpvoteButton();
+      expect(getFirstUpvoteValue()).toBe('1');
     });
 
   });
