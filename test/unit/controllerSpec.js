@@ -5,9 +5,9 @@ describe('AndyNews Controllers', function() {
 
     beforeEach(angular.mock.module('andyNews'));
 
-    beforeEach(angular.mock.inject(function($rootScope, $controller) {
+    beforeEach(angular.mock.inject(function($rootScope, $controller, postsFactory) {
       scope = $rootScope.$new();
-      $controller('MainCtrl', {$scope: scope});
+      $controller('MainCtrl', {$scope: scope, postsFactory:postsFactory});
     }));
 
     it('should create "test" with text "Hello Andy!"', function() {

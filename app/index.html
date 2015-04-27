@@ -9,46 +9,69 @@
     <script src="js/app.js"></script>
     <style> .glyphicon-thumbs-up {cursor:pointer} </style>
   </head>
-  <body ng-app="andyNews" ng-controller="MainCtrl">
+  <body ng-app="andyNews">
 
     <section class="row">
 
       <section class="col-md-6 col-md-offset-3">
-
-        <section class="page-header" id="welcome">
-          <h1>{{test}}</h1>
-        </section>
-
-        <section id="add-new-post" style="margin-top:30px;">
-          <form ng-submit="addPost()">
-            <h3>Add a new post</h3>
-            <section class="form-group">
-              <input id="new-post-title" type="text" ng-model="title"
-                      class="form-control" placeholder="Title"></input>
-            </section>
-            <section class="form-group">
-            <input id="new-post-link" type="text" ng-model="link"
-                    class="form-control" placeholder="Link"></input>
-            </section>
-            <button id="add-post-button" type="submit" class="btn btn-primary">
-              Post</button>
-          </form>
-        </section>
-
-        <section ng-repeat="post in posts | orderBy: '-upvotes'">
-          <p>Title: <span>{{post.title}}</span>
-             <span style="font-size:20px; margin-left:10px;"
-             ng-show="post.link">Link: <a href="{{post.link}}">{{post.link}}</a>
-             </span>
-             upvotes: <span>{{post.upvotes}} </span>
-             <span class="glyphicon glyphicon-thumbs-up"
-              ng-click="incrementUpvotes(post)"></span>
-          </p>
-        </section>
-
+        <ui-view></ui-view>
       </section>
 
     </section>
+
+    <script type="text/ng-template" id="/home.html">
+      <section class="page-header">
+        <h1>Andys 1st Angular App</h1>
+      </section>
+
+      <section class="page-header" id="welcome">
+        <h1>{{test}}</h1>
+      </section>
+
+      <section id="add-new-post" style="margin-top:30px;">
+        <form ng-submit="addPost()">
+          <h3>Add a new post</h3>
+          <section class="form-group">
+            <input id="new-post-title" type="text" ng-model="title"
+                    class="form-control" placeholder="Title"></input>
+          </section>
+          <section class="form-group">
+          <input id="new-post-link" type="text" ng-model="link"
+                  class="form-control" placeholder="Link"></input>
+          </section>
+          <button id="add-post-button" type="submit" class="btn btn-primary">
+            Post</button>
+        </form>
+      </section>
+
+      <section ng-repeat="post in posts | index | orderBy: '-upvotes'">
+        <p>Title: <span>{{post.title}}</span>
+          <span style="font-size:20px; margin-left:10px;"
+           ng-show="post.link">Link: <a href="{{post.link}}">{{post.link}}</a>
+          </span>
+           upvotes: <span>{{post.upvotes}} </span>
+          <span class="glyphicon glyphicon-thumbs-up"
+            ng-click="incrementUpvotes(post)"></span>
+          <span><a href="#/posts/{{post.index}}">comments</a></span>
+        </p>
+      </section>
+    </script>
+
+    <script type="text/ng-template" id="/posts.html">
+      <section class="page-header">
+        <h3>
+          {{post.title}}
+          <a ng-show="post.link" href="{{post.link}}">{{post.link}}</a>
+        </h3>
+      </section>
+
+      <section ng-repeat="comment in post.comments | orderBy:'-upvotes'">
+        <span style="font-size:20px; margin-left:10px;">{{comment.body}}</span>
+         - by {{comment.author}}, upvotes: {{comment.upvotes}}
+        <span class="glyphicon glyphicon-thumbs-up"
+          ng-click="incrementUpvotes(comment)"></span>
+      </section>
+    </script>
 
   </body>
 </html>
