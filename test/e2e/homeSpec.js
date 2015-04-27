@@ -1,4 +1,4 @@
-describe("Andy's first angular app", function() {
+describe("Andy's first angular app Home Page", function() {
 
   beforeEach(function() {
     browser.get('app/index.html');
@@ -125,6 +125,15 @@ describe("Andy's first angular app", function() {
     then(function(postLinkText) {
       expect(postLinkText).toBe('http://initialdigital.com');
     });
+
+  });
+
+  it('should provide each post with a link to comments', function() {
+
+    var postTitles = element.all(by.repeater('post in posts').column('post.title'));
+    var postCommentLinks = element.all(by.repeater('post in posts').column('post.index'));
+
+    expect(postCommentLinks.count).toEqual(postTitles.count);
 
   });
 

@@ -52,7 +52,8 @@
            upvotes: <span>{{post.upvotes}} </span>
           <span class="glyphicon glyphicon-thumbs-up"
             ng-click="incrementUpvotes(post)"></span>
-          <span><a href="#/posts/{{post.index}}">comments</a></span>
+          <span><a class="link-to-post" href="#/posts/{{post.index}}">
+            comments</a></span>
         </p>
       </section>
     </script>

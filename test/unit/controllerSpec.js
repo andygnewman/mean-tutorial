@@ -56,6 +56,23 @@ describe('AndyNews Controllers', function() {
 
   });
 
+  describe('PostsCtrl', function() {
+    var scope;
+
+    beforeEach(angular.mock.module('andyNews'));
+
+    beforeEach(angular.mock.inject(function($rootScope, $stateParams, $controller, postsFactory) {
+      scope = $rootScope.$new();
+      $stateParams.id = 0;
+      $controller('PostsCtrl', {$scope: scope, postsFactory: postsFactory});
+    }));
+
+    it('should return a single post', function() {
+      expect(scope.post.title).toBe('post1');
+    });
+
+  });
+
 });
 
 var newPost = function(scope) {
