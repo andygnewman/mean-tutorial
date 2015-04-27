@@ -71,6 +71,12 @@ describe('AndyNews Controllers', function() {
       expect(scope.post.title).toBe('post1');
     });
 
+    it('should allow a new comment to be created', function() {
+      scope.body = 'great post';
+      scope.addComment();
+      expect(scope.post.comments.length).toBe(1);
+    });
+
   });
 
 });

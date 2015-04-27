@@ -22,11 +22,11 @@ app.config(['$stateProvider', '$urlRouterProvider',
 app.factory('postsFactory', [function() {
   var o = {
     posts: [
-            {title: 'post1', upvotes: 5},
-            {title: 'post2', upvotes: 2},
-            {title: 'post3', upvotes: 15},
-            {title: 'post4', upvotes: 9},
-            {title: 'post5', upvotes: 4}
+            {title: 'post1', upvotes: 5, comments: []},
+            {title: 'post2', upvotes: 2, comments: []},
+            {title: 'post3', upvotes: 15, comments: []},
+            {title: 'post4', upvotes: 9, comments: []},
+            {title: 'post5', upvotes: 4, comments: []}
     ]
   };
   return o;
@@ -60,6 +60,15 @@ app.controller('PostsCtrl',
   ['$scope', '$stateParams', 'postsFactory',
     function($scope, $stateParams, postsFactory) {
       $scope.post = postsFactory.posts[$stateParams.id];
+      $scope.addComment = function() {
+        if($scope.body === '') { return; }
+        $scope.post.comments.push({
+          body: $scope.body,
+          author: 'user',
+          upvotes: 0
+        });
+        $scope.body = '';
+      };
 }]);
 
 app.filter('index', function() {
