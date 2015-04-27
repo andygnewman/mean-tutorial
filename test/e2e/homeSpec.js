@@ -24,7 +24,7 @@ describe("Andy's first angular app", function() {
   });
 
   it('should order the posts by number of upvotes', function() {
-    var postsUpvotes = element.all(by.repeater('post in posts').column('upvote'));
+    var postsUpvotes = element.all(by.repeater('post in posts').column('post.upvote'));
 
     function getUpvoteValues() {
       return postsUpvotes.map(function(elm) {
@@ -39,6 +39,7 @@ describe("Andy's first angular app", function() {
         });
     }
 
+    expect(getUpvoteValues()).toEqual(['15', '9', '5', '4', '2']);
     expect(getUpvoteValues()).toEqual(sortedUpvoteValues());
   });
 
@@ -62,7 +63,18 @@ describe("Andy's first angular app", function() {
     expect(posts.count()).toBe(5);
   });
 
-  xit('should allow the upvotes to be incremented', function() {
+  it('should allow the upvotes to be incremented', function() {
+
+    var postsUpvotes = element.all(by.repeater('post in posts').column('post.upvote'));
+
+    function getFirstUpvoteValue() {
+      return postsUpvotes.map(function(elm) {
+          return elm.getText();
+      }).
+        then(function(upvotesArray) {
+          return upvotesArray[0];
+        });
+    }
 
     function clickUpvoteButton() {
       element.all(by.repeater('post in posts')).
@@ -74,23 +86,11 @@ describe("Andy's first angular app", function() {
         });
     }
 
-    function upvoteNumber() {
-      element.all(by.repeater('post in posts').column('upvote')).
-        then(function(upvotes) {
-          upvotes.map(function(elm) {
-            return elm.getText();
-          });
-        }).
-        then(function(upvoteValues) {
-          return upvoteValues[0];
-        });
-    }
-
-    // expect(upvoteNumber).toBe('15');
+    expect(getFirstUpvoteValue()).toBe('15');
 
     clickUpvoteButton();
 
-    expect(upvoteNumber()).toBe('16');
+    expect(getFirstUpvoteValue()).toBe('16');
 
   });
 
