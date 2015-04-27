@@ -33,17 +33,9 @@ describe('AndyNews Controllers', function() {
       scope.title = 'new post';
       scope.addPost();
 
-      function newPost() {
-        for (var i = 0; i < scope.posts.length; i++) {
-          if (scope.posts[i].title === 'new post') {
-            return scope.posts[i];
-          }
-        }
-      }
-
-      expect(newPost().upvotes).toBe(0);
-      scope.incrementUpvotes(newPost());
-      expect(newPost().upvotes).toBe(1);
+      expect(newPost(scope).upvotes).toBe(0);
+      scope.incrementUpvotes(newPost(scope));
+      expect(newPost(scope).upvotes).toBe(1);
     });
 
     it('should allow a link to be added for a new post', function() {
@@ -51,18 +43,25 @@ describe('AndyNews Controllers', function() {
       scope.link = 'http://initialdigital.com';
       scope.addPost();
 
-      function newPost() {
-        for (var i = 0; i < scope.posts.length; i++) {
-          if (scope.posts[i].title === 'new post') {
-            return scope.posts[i];
-          }
-        }
-      }
+      expect(newPost(scope).link).toBe('http://initialdigital.com');
 
-      expect(newPost().link).toBe('http://initialdigital.com');
+    });
 
+    it('should not have a link element if no link text entered', function() {
+      scope.title = 'new post';
+      scope.addPost();
+
+      expect(newPost(scope).link).toBe(undefined);
     });
 
   });
 
 });
+
+var newPost = function(scope) {
+  for (var i = 0; i < scope.posts.length; i++) {
+    if (scope.posts[i].title === 'new post') {
+      return scope.posts[i];
+    }
+  }
+};

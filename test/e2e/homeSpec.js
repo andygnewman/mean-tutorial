@@ -117,7 +117,6 @@ describe("Andy's first angular app", function() {
 
     indexNewPost().
     then(function(newPostIndex) {
-      console.log(newPostIndex);
       return element.all(by.repeater('post in posts')).get(newPostIndex);
     }).
     then(function(post) {
