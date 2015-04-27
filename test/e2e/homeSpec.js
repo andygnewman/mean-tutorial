@@ -94,4 +94,39 @@ describe("Andy's first angular app", function() {
 
   });
 
+  it('should display a link added to a new post', function() {
+
+    var postTitles = element.all(by.repeater('post in posts').column('post.title'));
+
+    element(by.id('new-post-title')).sendKeys('new post');
+    element(by.id('new-post-link')).sendKeys('http://initialdigital.com');
+    element(by.id('add-post-button')).click();
+
+    function indexNewPost() {
+      return postTitles.map(function(elm) {
+        return elm.getText();
+      }).
+      then(function(titles) {
+        for (var i = 0; i < titles.length; i++) {
+          if (titles[i] === 'new post') {
+            return i;
+          }
+        }
+        });
+    }
+
+    indexNewPost().
+    then(function(newPostIndex) {
+      console.log(newPostIndex);
+      return element.all(by.repeater('post in posts')).get(newPostIndex);
+    }).
+    then(function(post) {
+      return post.element(by.binding('post.link')).getText();
+    }).
+    then(function(postLinkText) {
+      expect(postLinkText).toBe('http://initialdigital.com');
+    });
+
+  });
+
 });
