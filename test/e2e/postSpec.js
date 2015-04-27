@@ -17,4 +17,21 @@ describe("Andy's first angular app - Posts Page", function() {
 
   });
 
+  describe("posts page", function() {
+
+    beforeEach(function() {
+      browser.get('app/index.html#/posts/0');
+    });
+
+    it('should allow a new comment to be added', function() {
+      var comments = element.all(by.repeater('comment in post.comments'));
+
+      element(by.model('body')).sendKeys('great post');
+      element(by.id('post-comment-button')).click();
+
+      expect(comments.count()).toBe(1);
+    });
+
+  });
+
 });
