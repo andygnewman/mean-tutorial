@@ -44,7 +44,7 @@ describe("Andy's first angular app", function() {
   });
 
   it('should be able to add a new post', function() {
-    var newPost = element(by.id('new-post-text'));
+    var newPost = element(by.id('new-post-title'));
     var postButton = element(by.id('add-post-button'));
     var posts = element.all(by.repeater('post in posts'));
 

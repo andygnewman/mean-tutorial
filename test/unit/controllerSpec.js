@@ -32,6 +32,7 @@ describe('AndyNews Controllers', function() {
     it('should allow upvotes to be incremented', function() {
       scope.title = 'new post';
       scope.addPost();
+
       function newPost() {
         for (var i = 0; i < scope.posts.length; i++) {
           if (scope.posts[i].title === 'new post') {
@@ -43,6 +44,23 @@ describe('AndyNews Controllers', function() {
       expect(newPost().upvotes).toBe(0);
       scope.incrementUpvotes(newPost());
       expect(newPost().upvotes).toBe(1);
+    });
+
+    it('should allow a link to be added for a new post', function() {
+      scope.title = 'new post';
+      scope.link = 'http://initialdigital.com';
+      scope.addPost();
+
+      function newPost() {
+        for (var i = 0; i < scope.posts.length; i++) {
+          if (scope.posts[i].title === 'new post') {
+            return scope.posts[i];
+          }
+        }
+      }
+
+      expect(newPost().link).toBe('http://initialdigital.com');
+
     });
 
   });
