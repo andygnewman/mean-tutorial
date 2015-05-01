@@ -1,9 +1,9 @@
 describe('AndyNews Controllers', function() {
 
+  beforeEach(angular.mock.module('andyNewsApp'));
+
   describe('MainCtrl', function() {
     var scope;
-
-    beforeEach(angular.mock.module('andyNews'));
 
     beforeEach(angular.mock.inject(function($rootScope, $controller, postsFactory) {
       scope = $rootScope.$new();
@@ -58,8 +58,6 @@ describe('AndyNews Controllers', function() {
 
   describe('PostsCtrl', function() {
     var scope;
-
-    beforeEach(angular.mock.module('andyNews'));
 
     beforeEach(angular.mock.inject(function($rootScope, $stateParams, $controller, postsFactory) {
       scope = $rootScope.$new();

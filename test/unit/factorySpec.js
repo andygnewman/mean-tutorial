@@ -3,7 +3,7 @@ describe('AndyNews Factories', function() {
   describe('posts', function() {
     var factory;
 
-    beforeEach(angular.mock.module('andyNews'));
+    beforeEach(angular.mock.module('andyNewsAppServices'));
 
     beforeEach(angular.mock.inject(function(postsFactory) {
       factory = postsFactory;

@@ -1,4 +1,4 @@
-var andyNewsApp = angular.module('andyNews', [
+var andyNewsApp = angular.module('andyNewsApp', [
   'ui.router',
   'andyNewsAppControllers',
   'andyNewsAppFilters',

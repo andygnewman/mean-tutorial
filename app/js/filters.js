@@ -1,8 +1,6 @@
 'use strict';
 
-var andyNewsAppFilters = angular.module('andyNewsAppFilters', []);
-
-andyNewsAppFilters.filter('index', function() {
+angular.module('andyNewsAppFilters', []).filter('index', function() {
   return function(array, index) {
     if (!index) {
       index = 'index';
