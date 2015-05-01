@@ -11,12 +11,12 @@ andyNewsApp.config(['$stateProvider', '$urlRouterProvider',
       $stateProvider
         .state('home', {
           url: '/home',
-          templateUrl: '/home.html',
+          templateUrl: 'partials/home.html',
           controller: 'MainCtrl'
         })
         .state('posts', {
           url: '/posts/{id}',
-          templateUrl: '/posts.html',
+          templateUrl: 'partials/posts.html',
           controller: 'PostsCtrl'
         });
 
